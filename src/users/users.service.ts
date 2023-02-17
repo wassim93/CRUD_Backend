@@ -1,6 +1,5 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { NotFoundException } from '@nestjs/common/exceptions';
-import { Model } from 'mongoose';
+import { Inject, Injectable, HttpException } from '@nestjs/common';
+import { isValidObjectId, Model } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
 import { FindUserDto } from './dto/find-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -16,19 +15,12 @@ export class UsersService {
   }
 
   async update(updateUserDto: UpdateUserDto) {
-    const findQuery = await this.UserModel.findOneAndUpdate(
-      { _id: updateUserDto.id },
-      updateUserDto,
-    );
-    if (!findQuery) {
-      console.log('====================================');
-      console.log('50000');
-      console.log('====================================');
-      // throw new NotFoundException();
-      return 'id not found';
-    }
-    return findQuery;
-    // return `This action updates a  user`;
+    var mongoose = require('mongoose');
+    var id = mongoose.Types.ObjectId(updateUserDto.id);
+    console.log('====================================');
+    console.log('***************', id);
+    console.log('====================================');
+    return await this.UserModel.findOneAndUpdate({ _id: id }, updateUserDto);
   }
 
   async findAll(findUserDto: FindUserDto) {

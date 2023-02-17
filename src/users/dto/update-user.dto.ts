@@ -4,13 +4,13 @@ import { IsNotEmpty } from 'class-validator';
 import { CreateUserDto } from './create-user.dto';
 
 export class UpdateUserDto {
-  @ApiProperty({ required: true })
+  @ApiProperty()
   @IsNotEmpty({ message: 'required' })
   readonly id: string;
-  @ApiProperty({ required: true })
+  @ApiProperty()
   readonly name: string;
-  @ApiProperty({ required: false })
+  @ApiProperty()
   readonly age: number;
-  @ApiProperty({ required: false })
+  @ApiProperty()
   readonly breed: string;
 }
